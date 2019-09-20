@@ -92,7 +92,7 @@ window.renderStatistics = function (ctx, names, times) {
     var barX = CLOUD_X + BAR_GAP + (BAR_WIDTH + BAR_GAP) * i;
     var barY = playerNameY - FONT_GAP - PADDING - barHeight;
     var playerName = names[i];
-    var playerBarColor = i === 0 ? USER_BAR_COLOR : getColor();
+    var playerBarColor = playerName === 'Вы' ? USER_BAR_COLOR : getColor();
     var timeValue = Math.floor(times[i]);
 
     renderBar(ctx, playerName, timeValue, maxBarHeight, maxTime, playerBarColor, barX, barY);
