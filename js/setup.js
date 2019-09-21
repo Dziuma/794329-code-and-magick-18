@@ -2,8 +2,9 @@
 
 var WIZARD_NAMES = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
 var WIZARD_SURNAMES = ['да Мария', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
-var WIZARD_COAT_COLORS = ['rgb (101, 137, 164)', 'rgb (241, 43, 107)', 'rgb (146, 100, 161)', 'rgb (56, 159, 117)', 'rgb (215, 210, 55)', 'rgb (0, 0, 0)'];
+var WIZARD_COAT_COLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb (0, 0, 0)'];
 var WIZARD_EYES_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
+var fragment = document.createDocumentFragment();
 
 var showElement = function (element) {
   var hiddenElement = document.querySelector(element);
@@ -50,7 +51,6 @@ var makeWizardElement = function (wizard) {
 
 var renderWizards = function () {
   var similarListElement = document.querySelector('.setup-similar-list');
-  var fragment = document.createDocumentFragment();
 
   for (var i = 0; i < wizards.length; i += 1) {
     fragment.appendChild(makeWizardElement(wizards[i]));
