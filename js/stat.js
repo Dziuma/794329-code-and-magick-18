@@ -13,6 +13,7 @@ var BAR_GAP = 50;
 var CLOUD_COLOR = '#fff';
 var SHADOW_COLOR = 'rgba(0, 0, 0, 0.7)';
 var USER_BAR_COLOR = 'rgba(255, 0, 0, 1)';
+var USER_NAME = 'Вы';
 var TEXT_COLOR = 'rgba(0, 0, 0, 1)';
 var maxBarHeight = HISTOGRAM_HEIGHT - (PADDING + FONT_GAP) * 2;
 var shadowX = CLOUD_X + SHADOW_OFFSET;
@@ -92,7 +93,7 @@ window.renderStatistics = function (ctx, names, times) {
     var barX = CLOUD_X + BAR_GAP + (BAR_WIDTH + BAR_GAP) * i;
     var barY = playerNameY - FONT_GAP - PADDING - barHeight;
     var playerName = names[i];
-    var playerBarColor = playerName === 'Вы' ? USER_BAR_COLOR : getColor();
+    var playerBarColor = playerName === USER_NAME ? USER_BAR_COLOR : getColor();
     var timeValue = Math.floor(times[i]);
 
     renderBar(ctx, playerName, timeValue, maxBarHeight, maxTime, playerBarColor, barX, barY);
