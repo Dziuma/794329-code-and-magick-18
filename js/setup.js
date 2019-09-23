@@ -6,7 +6,7 @@ var WIZARD_COAT_COLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 1
 var WIZARD_EYES_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
 var numberOfWizards = 4;
 var fragment = document.createDocumentFragment();
-var similarWizardTemplate = document.querySelector('#similar-wizard-template')
+var wizardTemplate = document.querySelector('#similar-wizard-template')
 .content
 .querySelector('.setup-similar-item');
 var wizardsList = document.querySelector('.setup-similar-list');
@@ -16,23 +16,24 @@ var showElement = function (element) {
   hiddenElement.classList.remove('hidden');
 };
 
+var getRandomArrayIndex = function (array) {
+  var randomIndex = Math.floor(Math.random() * array.length);
+
+  return randomIndex;
+};
+
 var getRandomArrayElement = function (array) {
-  var getRandomArrayIndex = function () {
-    var randomIndex = Math.floor(Math.random() * array.length);
-
-    return randomIndex;
-  }
-
-  var randomIndex = getRandomArrayIndex();
+  var randomIndex = getRandomArrayIndex(array);
   var randomElement = array[randomIndex];
 
   return randomElement;
 };
 
 var generateWizardFullName = function () {
-  var fullName = getRandomArrayElement(WIZARD_NAMES) + ' ' + getRandomArrayElement(WIZARD_SURNAMES);
+  var wizardName = getRandomArrayElement(WIZARD_NAMES);
+  var wizardSurname = getRandomArrayElement(WIZARD_SURNAMES);
 
-  return fullName;
+  return wizardName + ' ' + wizardSurname;
 };
 
 var generateWizardParameters = function () {
@@ -54,7 +55,7 @@ var generateWizards = function (amount) {
   return wizards;
 };
 
-var makeWizardElement = function (wizard, template) {
+var createWizard = function (wizard, template) {
   var wizardElement = template.cloneNode(true);
 
   wizardElement.querySelector('.setup-similar-label').textContent = wizard.name;
@@ -65,8 +66,10 @@ var makeWizardElement = function (wizard, template) {
 };
 
 var renderWizards = function () {
+  var wizards = generateWizards(numberOfWizards);
+
   for (var i = 0; i < wizards.length; i += 1) {
-    var wizardElement = makeWizardElement(wizards[i], similarWizardTemplate);
+    var wizardElement = createWizard(wizards[i], wizardTemplate);
     fragment.appendChild(wizardElement);
   }
 
@@ -74,8 +77,6 @@ var renderWizards = function () {
 };
 
 showElement('.setup');
-
-var wizards = generateWizards(numberOfWizards);
 
 renderWizards();
 
