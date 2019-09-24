@@ -4,7 +4,7 @@ var WIZARD_NAMES = ['Иван', 'Хуан Себастьян', 'Мария', 'К
 var WIZARD_SURNAMES = ['да Мария', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
 var WIZARD_COAT_COLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb (0, 0, 0)'];
 var WIZARD_EYES_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
-var numberOfWizards = 4;
+var NUMBER_OF_WIZARDS = 4;
 var fragment = document.createDocumentFragment();
 var wizardTemplate = document.querySelector('#similar-wizard-template')
 .content
@@ -17,9 +17,7 @@ var showElement = function (element) {
 };
 
 var getRandomArrayIndex = function (array) {
-  var randomIndex = Math.floor(Math.random() * array.length);
-
-  return randomIndex;
+  return Math.floor(Math.random() * array.length);
 };
 
 var getRandomArrayElement = function (array) {
@@ -56,17 +54,17 @@ var generateWizards = function (amount) {
 };
 
 var createWizard = function (wizard, template) {
-  var wizardElement = template.cloneNode(true);
+  var wizardTamplate = template.cloneNode(true);
 
-  wizardElement.querySelector('.setup-similar-label').textContent = wizard.name;
-  wizardElement.querySelector('.wizard-coat').style.fill = wizard.coatColor;
-  wizardElement.querySelector('.wizard-eyes').style.fill = wizard.eyesColor;
+  wizardTamplate.querySelector('.setup-similar-label').textContent = wizard.name;
+  wizardTamplate.querySelector('.wizard-coat').style.fill = wizard.coatColor;
+  wizardTamplate.querySelector('.wizard-eyes').style.fill = wizard.eyesColor;
 
-  return wizardElement;
+  return wizardTamplate;
 };
 
 var renderWizards = function () {
-  var wizards = generateWizards(numberOfWizards);
+  var wizards = generateWizards(NUMBER_OF_WIZARDS);
 
   for (var i = 0; i < wizards.length; i += 1) {
     var wizardElement = createWizard(wizards[i], wizardTemplate);
