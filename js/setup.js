@@ -100,7 +100,7 @@ var openPopup = function () {
 var closePopup = function () {
   setup.classList.add('hidden');
   document.removeEventListener('keydown', setupCloseEscPressHandler);
-}
+};
 
 renderWizards();
 
@@ -111,7 +111,7 @@ setupOpen.addEventListener('click', function () {
 });
 
 setupOpen.addEventListener('keydown', function (evt) {
-  if (evt.keyCode === 13) {
+  if (evt.keyCode === ENTER_KEYCODE) {
     openPopup();
   }
 });
@@ -121,7 +121,7 @@ setupClose.addEventListener('click', function () {
 });
 
 setupClose.addEventListener('keydown', function (evt) {
-  if (evt.keyCode === 13) {
+  if (evt.keyCode === ENTER_KEYCODE) {
     closePopup();
   }
 });
@@ -129,17 +129,17 @@ setupClose.addEventListener('keydown', function (evt) {
 wizardCoat.addEventListener('click', function () {
   var randomCoatColor = getRandomArrayElement(WIZARD_COAT_COLORS);
   wizardCoat.style.fill = randomCoatColor;
-  inputCoatColor = randomCoatColor;
+  inputCoatColor.value = randomCoatColor;
 });
 
 wizardEyes.addEventListener('click', function () {
   var randomEyesColor = getRandomArrayElement(WIZARD_EYES_COLORS);
   wizardEyes.style.fill = randomEyesColor;
-  inputEyesColor = randomEyesColor;
+  inputEyesColor.value = randomEyesColor;
 });
 
 fireball.addEventListener('click', function () {
   var randomFireballColor = getRandomArrayElement(FIREBALL_COLORS);
   fireball.style.background = randomFireballColor;
-  inputFireballColor = randomFireballColor;
+  inputFireballColor.value = randomFireballColor;
 });
