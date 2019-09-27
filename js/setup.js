@@ -86,7 +86,7 @@ var renderWizards = function () {
   wizardsList.appendChild(fragment);
 };
 
-var setupCloseEscPressHandler = function (evt) {
+var escPressHandler = function (evt) {
   if (evt.keyCode === ESC_KEYCODE) {
     closePopup();
   }
@@ -94,12 +94,30 @@ var setupCloseEscPressHandler = function (evt) {
 
 var openPopup = function () {
   setup.classList.remove('hidden');
-  document.addEventListener('keydown', setupCloseEscPressHandler);
+  document.addEventListener('keydown', escPressHandler);
 };
 
 var closePopup = function () {
   setup.classList.add('hidden');
-  document.removeEventListener('keydown', setupCloseEscPressHandler);
+  document.removeEventListener('keydown', escPressHandler);
+};
+
+var changeCoatColor = function () {
+  var randomCoatColor = getRandomArrayElement(WIZARD_COAT_COLORS);
+  wizardCoat.style.fill = randomCoatColor;
+  inputCoatColor.value = randomCoatColor;
+};
+
+var changeEyesColor = function () {
+  var randomEyesColor = getRandomArrayElement(WIZARD_EYES_COLORS);
+  wizardEyes.style.fill = randomEyesColor;
+  inputEyesColor.value = randomEyesColor;
+};
+
+var changeFireballColor = function () {
+  var randomFireballColor = getRandomArrayElement(FIREBALL_COLORS);
+  fireball.style.background = randomFireballColor;
+  inputFireballColor.value = randomFireballColor;
 };
 
 renderWizards();
@@ -127,19 +145,13 @@ setupClose.addEventListener('keydown', function (evt) {
 });
 
 wizardCoat.addEventListener('click', function () {
-  var randomCoatColor = getRandomArrayElement(WIZARD_COAT_COLORS);
-  wizardCoat.style.fill = randomCoatColor;
-  inputCoatColor.value = randomCoatColor;
+  changeCoatColor();
 });
 
 wizardEyes.addEventListener('click', function () {
-  var randomEyesColor = getRandomArrayElement(WIZARD_EYES_COLORS);
-  wizardEyes.style.fill = randomEyesColor;
-  inputEyesColor.value = randomEyesColor;
+  changeEyesColor();
 });
 
 fireball.addEventListener('click', function () {
-  var randomFireballColor = getRandomArrayElement(FIREBALL_COLORS);
-  fireball.style.background = randomFireballColor;
-  inputFireballColor.value = randomFireballColor;
+  changeFireballColor();
 });
