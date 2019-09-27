@@ -47,12 +47,12 @@ var generateWizardFullName = function () {
 };
 
 var generateWizardParameters = function () {
-  var wizard = {};
-  wizard.name = generateWizardFullName();
-  wizard.coatColor = getRandomArrayElement(WIZARD_COAT_COLORS);
-  wizard.eyesColor = getRandomArrayElement(WIZARD_EYES_COLORS);
+  var wizardParameters = {};
+  wizardParameters.name = generateWizardFullName();
+  wizardParameters.coatColor = getRandomArrayElement(WIZARD_COAT_COLORS);
+  wizardParameters.eyesColor = getRandomArrayElement(WIZARD_EYES_COLORS);
 
-  return wizard;
+  return wizardParameters;
 };
 
 var generateWizards = function (amount) {
@@ -65,14 +65,14 @@ var generateWizards = function (amount) {
   return wizards;
 };
 
-var createWizard = function (wizard, template) {
-  var wizardTamplate = template.cloneNode(true);
+var createWizard = function (wizardParameters, template) {
+  var wizard = template.cloneNode(true);
 
-  wizardTamplate.querySelector('.setup-similar-label').textContent = wizard.name;
-  wizardTamplate.querySelector('.wizard-coat').style.fill = wizard.coatColor;
-  wizardTamplate.querySelector('.wizard-eyes').style.fill = wizard.eyesColor;
+  wizard.querySelector('.setup-similar-label').textContent = wizardParameters.name;
+  wizard.querySelector('.wizard-coat').style.fill = wizardParameters.coatColor;
+  wizard.querySelector('.wizard-eyes').style.fill = wizardParameters.eyesColor;
 
-  return wizardTamplate;
+  return wizard;
 };
 
 var renderWizards = function () {
