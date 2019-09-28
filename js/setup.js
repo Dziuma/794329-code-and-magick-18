@@ -16,6 +16,7 @@ var wizardsList = document.querySelector('.setup-similar-list');
 var setup = document.querySelector('.setup');
 var setupOpen = document.querySelector('.setup-open');
 var setupClose = setup.querySelector('.setup-close');
+var setupUserName = setup.querySelector('.setup-user-name');
 var wizardCoat = setup.querySelector('.wizard-coat');
 var wizardEyes = setup.querySelector('.wizard-eyes');
 var fireball = setup.querySelector('.setup-fireball-wrap');
@@ -87,7 +88,7 @@ var renderWizards = function () {
 };
 
 var escPressHandler = function (evt) {
-  if (evt.keyCode === ESC_KEYCODE) {
+  if (evt.keyCode === ESC_KEYCODE && evt.target !== setupUserName) {
     closePopup();
   }
 };
