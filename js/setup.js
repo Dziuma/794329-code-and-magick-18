@@ -103,7 +103,6 @@
     var dragged = false;
 
     var onMouseMove = function (moveEvt) {
-      moveEvt.preventDefault();
       dragged = true;
 
       var shift = {
@@ -116,8 +115,25 @@
         y: moveEvt.clientY
       };
 
-      setup.style.top = (setup.offsetTop - shift.y) + 'px';
-      setup.style.left = (setup.offsetLeft - shift.x) + 'px';
+      var setupCoords = {
+        x: setup.offsetLeft - shift.x,
+        y: setup.offsetTop - shift.y
+      };
+
+      var setupRect = setup.getBoundingClientRect();
+
+      if (setupRect.left < 0) {
+        setupCoords.x = setup.offsetWidth / 2;
+      }
+      if (setupRect.top < 0) {
+        setupCoords.y = 0;
+      }
+      if (setupRect.right > window.innerWidth) {
+        setupCoords.x = window.innerWidth - setup.offsetWidth / 2;
+      }
+
+      setup.style.left = setupCoords.x + 'px';
+      setup.style.top = setupCoords.y + 'px';
     };
 
     var onMouseUp = function (upEvt) {
