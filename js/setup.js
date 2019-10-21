@@ -14,6 +14,12 @@
   var inputCoatColor = setup.querySelector('input[name="coat-color"]');
   var inputEyesColor = setup.querySelector('input[name="eyes-color"]');
   var inputFireballColor = setup.querySelector('input[name="fireball-color"]');
+  var dialogHandler = setup.querySelector('.upload');
+  var startCoords = {
+    x: null,
+    y: null
+  };
+  var dragged = false;
 
   var resetOffset = function (element) {
     var isStyle = element.hasAttribute('style');
@@ -90,68 +96,71 @@
     changeFireballColor();
   });
 
-  var dialogHandler = setup.querySelector('.upload');
-
-  dialogHandler.addEventListener('mousedown', function (evt) {
-    evt.preventDefault();
-
-    var startCoords = {
-      x: evt.clientX,
-      y: evt.clientY
+  var moveTo = function (moveEvt, draggable) {
+    var shift = {
+      x: startCoords.x - moveEvt.clientX,
+      y: startCoords.y - moveEvt.clientY
     };
 
-    var dragged = false;
-
-    var onMouseMove = function (moveEvt) {
-      dragged = true;
-
-      var shift = {
-        x: startCoords.x - moveEvt.clientX,
-        y: startCoords.y - moveEvt.clientY
-      };
-
-      startCoords = {
-        x: moveEvt.clientX,
-        y: moveEvt.clientY
-      };
-
-      var setupCoords = {
-        x: setup.offsetLeft - shift.x,
-        y: setup.offsetTop - shift.y
-      };
-
-      var setupRect = setup.getBoundingClientRect();
-
-      if (setupRect.left < 0) {
-        setupCoords.x = setup.offsetWidth / 2;
-      }
-      if (setupRect.top < 0) {
-        setupCoords.y = 0;
-      }
-      if (setupRect.right > window.innerWidth) {
-        setupCoords.x = window.innerWidth - setup.offsetWidth / 2;
-      }
-
-      setup.style.left = setupCoords.x + 'px';
-      setup.style.top = setupCoords.y + 'px';
+    startCoords = {
+      x: moveEvt.clientX,
+      y: moveEvt.clientY
     };
 
-    var onMouseUp = function (upEvt) {
-      upEvt.preventDefault();
+    var draggableCoords = {
+      x: draggable.offsetLeft - shift.x,
+      y: draggable.offsetTop - shift.y
+    };
 
-      document.removeEventListener('mousemove', onMouseMove);
-      document.removeEventListener('mouseup', onMouseUp);
+    var draggableRect = draggable.getBoundingClientRect();
 
-      if (dragged) {
-        var onClickPreventDefault = function (clickEvt) {
-          clickEvt.preventDefault();
-          dialogHandler.removeEventListener('click', onClickPreventDefault);
-        };
-        dialogHandler.addEventListener('click', onClickPreventDefault);
-      }
+    if (draggableRect.left < 0) {
+      draggableCoords.x = draggable.offsetWidth / 2;
+    }
+    if (draggableRect.top < 0) {
+      draggableCoords.y = 0;
+    }
+    if (draggableRect.right > window.innerWidth) {
+      draggableCoords.x = window.innerWidth - draggable.offsetWidth / 2;
+    }
+
+    draggable.style.left = draggableCoords.x + 'px';
+    draggable.style.top = draggableCoords.y + 'px';
+  };
+
+  var onMouseDown = function (downEvt) {
+    downEvt.preventDefault();
+
+    startCoords = {
+      x: downEvt.clientX,
+      y: downEvt.clientY
     };
 
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
-  });
+  };
+
+  var onMouseMove = function (moveEvt) {
+    dragged = true;
+    moveTo(moveEvt, setup);
+  };
+
+  var onMouseUp = function (upEvt) {
+    upEvt.preventDefault();
+
+    document.removeEventListener('mousemove', onMouseMove);
+    document.removeEventListener('mouseup', onMouseUp);
+
+    if (dragged) {
+      var onClickPreventDefault = function (clickEvt) {
+        clickEvt.preventDefault();
+        dialogHandler.removeEventListener('click', onClickPreventDefault);
+      };
+      dialogHandler.addEventListener('click', onClickPreventDefault);
+    }
+
+    dragged = false;
+  };
+
+  dialogHandler.addEventListener('mousedown', onMouseDown);
 })();
