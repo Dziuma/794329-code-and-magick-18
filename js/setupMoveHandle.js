@@ -24,13 +24,8 @@
       y: draggable.offsetTop - shift.y
     };
 
-    console.log('OffsetLeft = ' + draggable.offsetLeft);
-    // console.log(draggable.offsetTop);
-
     var draggableRect = draggable.getBoundingClientRect();
 
-    console.log('RectLeft = ' + draggableRect.left);
-    // console.log(draggableRect.top);
     if (draggableRect.left < 0) {
       draggableCoords.x = draggable.offsetWidth / 2;
     }
