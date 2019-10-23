@@ -2,29 +2,20 @@
 
 (function () {
   var dialogHandler = window.setup.querySelector('.upload');
-  var pointerPosition = {
+  var shift = {
     x: null,
     y: null
   };
   var dragged = false;
+  var setup = window.setup;
 
   var moveTo = function (moveEvt, draggable) {
-    var shift = {
-      x: pointerPosition.x - moveEvt.clientX,
-      y: pointerPosition.y - moveEvt.clientY
-    };
-
-    pointerPosition = {
-      x: moveEvt.clientX,
-      y: moveEvt.clientY
-    };
+    var draggableRect = draggable.getBoundingClientRect();
 
     var draggableCoords = {
-      x: draggable.offsetLeft - shift.x,
-      y: draggable.offsetTop - shift.y
+      x: moveEvt.clientX + draggableRect.width / 2 - shift.x,
+      y: moveEvt.clientY - shift.y
     };
-
-    var draggableRect = draggable.getBoundingClientRect();
 
     if (draggableRect.left < 0) {
       draggableCoords.x = draggable.offsetWidth / 2;
@@ -43,9 +34,11 @@
   var onMouseDown = function (downEvt) {
     downEvt.preventDefault();
 
-    pointerPosition = {
-      x: downEvt.clientX,
-      y: downEvt.clientY
+    var draggableRect = setup.getBoundingClientRect();
+
+    shift = {
+      x: downEvt.clientX - draggableRect.left,
+      y: downEvt.clientY - draggableRect.top
     };
 
     document.addEventListener('mousemove', onMouseMove);
@@ -54,7 +47,7 @@
 
   var onMouseMove = function (moveEvt) {
     dragged = true;
-    moveTo(moveEvt, window.setup);
+    moveTo(moveEvt, setup);
   };
 
   var onClickPreventDefault = function (clickEvt) {
